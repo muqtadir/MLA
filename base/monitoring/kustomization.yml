@@ -1,0 +1,9 @@
+resources:
+- grafana-svc.yml
+- logging-operator.yml
+- loki.yml
+- prometheus-operator.yml
+# logging operator default config, works good at least for inventory and promise-date
+- flow.yml
+- output.yml
+- logging.yml

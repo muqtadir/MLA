@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd
+  labels:
+    scope: system
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://grafana.github.io/loki/charts'
+    targetRevision: 0.22.0
+    chart: loki
+    helm:
+      parameters: 
+      - name: config.limits_config.ingestion_rate_mb
+        value: "128"
+      - name: config.limits_config.ingestion_burst_size_mb
+        value: "1024"
+      - name: config.table_manager_config.retention_period
+        value: 3d
+      - name: config.server.grpc_server_max_recv_msg_size
+        value: "12194304"
+      - name: resources.requests.cpu
+        value: '1'
+      - name: resources.requests.memory
+        value: '2Gi'
+      - name: resources.limits.cpu
+        value: '1.5'
+      - name: resources.limits.memory
+        value: '5Gi'
+  project: monitoring
+  syncPolicy:
+    automated: {}
