@@ -11,10 +11,10 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: 'https://grafana.github.io/loki/charts'
-    targetRevision: 0.22.0
+    targetRevision: 0.25.1
     chart: loki
     helm:
-      parameters: 
+      parameters:
       - name: config.limits_config.ingestion_rate_mb
         value: "128"
       - name: config.limits_config.ingestion_burst_size_mb
@@ -26,11 +26,11 @@ spec:
       - name: resources.requests.cpu
         value: '1'
       - name: resources.requests.memory
-        value: '2Gi'
+        value: '1Gi'
       - name: resources.limits.cpu
         value: '1.5'
       - name: resources.limits.memory
-        value: '5Gi'
+        value: '2Gi'
   project: monitoring
   syncPolicy:
     automated: {}
